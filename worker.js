@@ -31,6 +31,7 @@ const exp5 = /^(?:https?:\/\/)?gist\.(?:githubusercontent|github)\.com\/.+?\/.+?
 const exp6 = /^(?:https?:\/\/)?github\.com\/.+?\/.+?\/tags.*$/i
 const exp7 = /^(?:https?:\/\/)?api\.github\.com\/.*$/i
 const exp8 = /^(?:https?:\/\/)?git\.io\/.*$/i
+const exp9 = /^(?:https?:\/\/)?gitlab\.com\/.*$/i
 
 /**
  * @param {any} body
@@ -63,7 +64,7 @@ addEventListener('fetch', e => {
 
 
 function checkUrl(u) {
-    for (let i of [exp1, exp2, exp3, exp4, exp5, exp6, exp7, exp8]) {
+    for (let i of [exp1, exp2, exp3, exp4, exp5, exp6, exp7, exp8, exp9]) {
         if (u.search(i) === 0) {
             return true
         }
@@ -102,9 +103,9 @@ async function fetchHandler(e) {
     path = path.replace(/^https?:\/+/, 'https://')
     console.log ("path:" + path)
 
-    if (path.search(exp1) === 0 || path.search(exp3) === 0 || path.search(exp4) === 0 || path.search(exp5) === 0 || path.search(exp6) === 0 || path.search(exp7) === 0 || path.search(exp8) === 0) {
+    if (path.search(exp1) === 0 || path.search(exp3) === 0 || path.search(exp4) === 0 || path.search(exp5) === 0 || path.search(exp6) === 0 || path.search(exp7) === 0 || path.search(exp8) === 0 || path.search(exp9) === 0) {
         
-        console.log("exp 1,3,4,5,6,7,8")
+        console.log("exp 1,3,4,5,6,7,8, 9")
 
         return httpHandler(req, path)
     } else if (path.search(exp2) === 0) {
@@ -119,8 +120,11 @@ async function fetchHandler(e) {
         const newUrl = path.replace(/(?<=com\/.+?\/.+?)\/(.+?\/)/, '@$1').replace(/^(?:https?:\/\/)?raw\.(?:githubusercontent|github)\.com/, 'https://cdn.jsdelivr.net/gh')
         return Response.redirect(newUrl, 302)
     } else if (path==='perl-pe-para') {
-        let reponseText = 's#(curl.*?\\.sh)([^/\\w\\d])#\\1 | perl -pe "\\$(curl -L ' + urlObj.origin + '/perl-pe-para)" \\2#g; s# (git)# https://\\1#g; s#(http.*?git[^/]*?/)#' + urlObj.origin + '/\\1#g';
-        return new Response( reponseText, { status: 200, 
+      let perlstr = 'perl -pe'
+      let responseText = 's#(bash.*?\\.sh)([^/\\w\\d])#\\1 | ' + perlstr + ' "\\$(curl -L ' + urlObj.origin + '/perl-pe-para)" \\2#g; ' +
+                   's# (git)# https://\\1#g; ' +
+                   's#(http.*?git[^/]*?/)#' + urlObj.origin + '/\\1#g';
+      return new Response( responseText, { status: 200, 
             headers: {
               'Content-Type': 'text/plain',
               'Cache-Control': 'max-age=300'
@@ -214,4 +218,3 @@ async function proxy(urlObj, reqInit) {
         headers: resHdrNew,
     })
 }
-

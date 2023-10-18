@@ -1,1 +1,1 @@
-s#(curl.*?\.sh)([^/])#\1 | perl -pe "\$(curl -L https://github.crazypeace.workers.dev/perl-pe-para)" \2#g; s#(http.*?github[^/]*?/)#https://github.crazypeace.workers.dev/\1#g
+s#(bash.*?\.sh)([^/])#\1 | perl -pe "\$(curl -L https://github.crazypeace.workers.dev/perl-pe-para)" \2#g; s#(http.*?github[^/]*?/)#https://github.crazypeace.workers.dev/\1#g

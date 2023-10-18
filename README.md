@@ -5,16 +5,32 @@
 
 增加支持 git.io
 
-做了工具页面, 方便使用 
+做了工具页面, 方便使用  
 https://ghproxy.crazypeace.workers.dev/
 
-演示视频 
+其它演示站域名 (哪个能用就用哪个, 也许会被GFW屏蔽)  
+ghproxy.lvedong.eu.org  
+ghproxy.icdyct.space  
+ghproxy.icdyct.ggff.net  
+
+用法演示视频   
 https://youtu.be/F9re4Tuy7BA
 
-在 Cloudflare 的 worker 上自建 Github 代理 教程 https://zelikk.blogspot.com/2023/06/gh-proxy-worker.html
+支持github脚本的无限嵌套调用 演示视频  
+https://youtu.be/5zCJsCoi_lQ
 
-在 Replit 上自建 Github 代理 教程 https://zelikk.blogspot.com/2023/07/replit-gh-proxy.html
+在 Cloudflare 的 worker 上自建 Github 代理 教程  
+https://zelikk.blogspot.com/2023/06/gh-proxy-worker.html
 
+在 Replit 上自建 Github 代理 教程  
+https://zelikk.blogspot.com/2023/07/replit-gh-proxy.html
+
+处理嵌套github脚本的原理说明  
+https://zelikk.blogspot.com/search/label/ghproxy
+
+<details>
+    <summary>原项目readme (点击展开)</summary>
+  
 ## 简介
 
 github release、archive以及项目文件的加速项目，支持clone，有Cloudflare Workers无服务器版本以及Python版本
@@ -127,7 +143,4 @@ python版本默认走服务器（2021.3.27更新）
 
 [jsproxy](https://github.com/EtherDream/jsproxy/)
 
-## 捐赠
-
-![wx.png](https://img.maocdn.cn/img/2021/04/24/image.md.png)
-![ali.png](https://www.helloimg.com/images/2021/04/24/BK9vmb.md.png)
+</details>
