@@ -119,8 +119,11 @@ async function fetchHandler(e) {
         const newUrl = path.replace(/(?<=com\/.+?\/.+?)\/(.+?\/)/, '@$1').replace(/^(?:https?:\/\/)?raw\.(?:githubusercontent|github)\.com/, 'https://cdn.jsdelivr.net/gh')
         return Response.redirect(newUrl, 302)
     } else if (path==='perl-pe-para') {
-        let reponseText = 's#(bash.*?\\.sh)([^/\\w\\d])#\\1 | perl -pe "\\$(curl -L ' + urlObj.origin + '/perl-pe-para)" \\2#g; s# (git)# https://\\1#g; s#(http.*?git[^/]*?/)#' + urlObj.origin + '/\\1#g';
-        return new Response( reponseText, { status: 200, 
+      let perlstr = 'perl -pe'
+      let responseText = 's#(bash.*?\\.sh)([^/\\w\\d])#\\1 | ' + perlstr + ' "\\$(curl -L ' + urlObj.origin + '/perl-pe-para)" \\2#g; ' +
+                   's# (git)# https://\\1#g; ' +
+                   's#(http.*?git[^/]*?/)#' + urlObj.origin + '/\\1#g';
+      return new Response( responseText, { status: 200, 
             headers: {
               'Content-Type': 'text/plain',
               'Cache-Control': 'max-age=300'
@@ -214,4 +217,3 @@ async function proxy(urlObj, reqInit) {
         headers: resHdrNew,
     })
 }
-
