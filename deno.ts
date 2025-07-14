@@ -33,6 +33,7 @@ const exp5 = /^(?:https?:\/\/)?gist\.(?:githubusercontent|github)\.com\/.+?\/.+?
 const exp6 = /^(?:https?:\/\/)?github\.com\/.+?\/.+?\/tags.*$/i;
 const exp7 = /^(?:https?:\/\/)?api\.github\.com\/.*$/i;
 const exp8 = /^(?:https?:\/\/)?git\.io\/.*$/i;
+const exp9 = /^(?:https?:\/\/)?gitlab\.com\/.*$/i;
 
 function makeRes(body: BodyInit, status = 200, headers: Record<string, string> = {}): Response {
     headers['access-control-allow-origin'] = '*';
@@ -48,7 +49,7 @@ function newUrl(urlStr: string): URL | null {
 }
 
 function checkUrl(u: string): boolean {
-    for (const regex of [exp1, exp2, exp3, exp4, exp5, exp6, exp7, exp8]) {
+    for (const regex of [exp1, exp2, exp3, exp4, exp5, exp6, exp7, exp8, exp9]) {
         if (u.search(regex) === 0) {
             return true;
         }
@@ -85,9 +86,9 @@ async function fetchHandler(req: Request): Promise<Response> {
 
     if (path.search(exp1) === 0 || path.search(exp3) === 0 || path.search(exp4) === 0 || 
         path.search(exp5) === 0 || path.search(exp6) === 0 || path.search(exp7) === 0 || 
-        path.search(exp8) === 0) {
+        path.search(exp8) === 0 || path.search(exp9) === 0) {
         
-        console.log("exp 1,3,4,5,6,7,8");
+        console.log("exp 1,3,4,5,6,7,8,9");
         return httpHandler(req, path);
     } else if (path.search(exp2) === 0) {
         if (Config.jsdelivr) {
